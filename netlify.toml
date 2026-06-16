@@ -9,10 +9,12 @@
   ignore = "git diff --quiet $COMMIT_REF $CACHED_COMMIT_REF -- . :!server/"
 
 [build.environment]
-  # Node.js version for build
-  NODE_VERSION = "20"
+  # Node.js version for build - MUST be 22+ for TanStack Start
+  NODE_VERSION = "22"
   # Use npm for Netlify builds (not bun)
   NPM_FLAGS = "--legacy-peer-deps"
+  # Force install to resolve peer deps
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
   # API URL - set this in Netlify UI Environment Variables
   # VITE_API_URL = "https://your-backend-url.com"
 
