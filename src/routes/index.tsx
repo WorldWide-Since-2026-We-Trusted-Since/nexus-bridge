@@ -82,16 +82,18 @@ function CompanyInfo() {
       <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="animate-grow-in">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/40 px-3 py-1 text-[11px] uppercase tracking-[0.25em] text-holo">
-            <Sparkles className="h-3 w-3" /> [Your Tagline Here]
+            <Sparkles className="h-3 w-3" /> Global Infrastructure Command
           </div>
           <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            <span className="text-holo">[Company Name]</span>
+            <span className="text-holo">Infrastructure Enforcement</span>
             <br />
-            <span className="text-foreground/90">[Slogan Line]</span>
+            <span className="text-foreground/90">for a connected world.</span>
           </h1>
           <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            [Edit this text in src/routes/index.tsx - Company description, mission statement, 
-            or any information you want to display here. This section is fully editable.]
+            HNOSS Reference Governance System — strategic partner aligned with EU, NATO,
+            UN, Pentagon advancing infrastructure, innovation and international cooperation
+            through sovereign wealth coordination, transparent governance and long-horizon
+            programs. <span className="text-foreground/80">Open in the Gray</span> — open where possible, protected where necessary.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
@@ -108,9 +110,9 @@ function CompanyInfo() {
             </Link>
           </div>
           <div className="mt-8 flex flex-wrap gap-2">
-            <TrustBadge label="[Badge 1]" level={100} />
-            <TrustBadge label="[Badge 2]" level={90} />
-            <TrustBadge label="[Badge 3]" level={85} />
+            <TrustBadge label="Governance Certified" level={96} />
+            <TrustBadge label="Ethics Compliant" level={94} />
+            <TrustBadge label="Transparency" level={91} />
           </div>
         </div>
 
@@ -119,16 +121,16 @@ function CompanyInfo() {
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--holo)] to-transparent" />
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
-                <Activity className="h-3.5 w-3.5 text-[var(--holo)]" /> [Status Panel]
+                <Activity className="h-3.5 w-3.5 text-[var(--holo)]" /> Live Intelligence
               </div>
               <span className="font-mono text-[10px] text-muted-foreground">{new Date().toISOString().slice(11, 19)} UTC</span>
             </div>
             <CrownSeal className="my-6" />
             <div className="grid grid-cols-3 gap-3 text-center">
               {[
-                { k: "[Metric 1]", v: "[Value]" },
-                { k: "[Metric 2]", v: "[Value]" },
-                { k: "[Metric 3]", v: "[Value]" },
+                { k: "Members", v: "1,284" },
+                { k: "Partners", v: "146" },
+                { k: "Countries", v: "34" },
               ].map((s) => (
                 <div key={s.k} className="rounded-lg border border-border bg-card/40 p-3">
                   <div className="font-display text-xl text-holo">{s.v}</div>
@@ -138,9 +140,9 @@ function CompanyInfo() {
             </div>
             <div className="mt-5 space-y-2 text-xs">
               {[
-                { t: "[Status Update 1]", s: "active" as const },
-                { t: "[Status Update 2]", s: "advisory" as const },
-                { t: "[Status Update 3]", s: "active" as const },
+                { t: "Treaty Framework V updated", s: "active" as const },
+                { t: "New Strategic Partner onboarded", s: "active" as const },
+                { t: "Funding milestone reached — Phase II", s: "advisory" as const },
               ].map((e, i) => (
                 <div key={i} className="flex items-center gap-3 rounded-md border border-border bg-card/30 px-3 py-2">
                   <StatusDot status={e.s} />
