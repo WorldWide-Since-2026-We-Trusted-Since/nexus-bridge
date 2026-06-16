@@ -11,13 +11,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    // React plugin
-    react(),
-    // TanStack Router - file-based routing
+    // TanStack Router MUST come BEFORE React/JSX plugins
     TanStackRouterVite({
       target: "react",
       autoCodeSplitting: true,
     }),
+    // React plugin
+    react(),
     // Tailwind CSS v4
     tailwindcss(),
     // TypeScript path aliases (@/components, etc.)
