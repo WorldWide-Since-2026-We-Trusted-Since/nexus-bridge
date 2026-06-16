@@ -24,11 +24,27 @@
 # SPA REDIRECT RULES - REQUIRED for TanStack Router
 # ============================================
 # All routes must go to index.html for client-side routing to work
+# This is a rewrite (status 200), not a redirect
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  force = true
+
+# Exclude actual files and directories from the rewrite
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.js"
+  to = "/:splat.js"
+  status = 200
+
+[[redirects]]
+  from = "/*.css"
+  to = "/:splat.css"
+  status = 200
 
 # ============================================
 # API PROXY (Optional - if backend is deployed)
