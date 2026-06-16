@@ -355,21 +355,25 @@ export function HNOSSKeyTicker({ className, speed = 30 }: HNOSSKeyTickerProps) {
     ...GOVERNANCE_KEYS.alliances,
   ], []);
 
-  // Duplicate for seamless loop
-  const tickerKeys = useMemo(() => [...allKeys, ...allKeys, ...allKeys], [allKeys]);
+  // Duplicate many times for seamless loop (ensure content is wider than viewport)
+  const tickerKeys = useMemo(() => {
+    const copies = 10; // More copies for seamless animation
+    return Array(copies).fill(allKeys).flat();
+  }, [allKeys]);
 
   return (
     <div className={cn("relative overflow-hidden", className)}>
-      <div 
-        className="flex whitespace-nowrap"
+      <div
+        className="flex whitespace-nowrap will-change-transform"
         style={{
           animation: `hnoss-ticker ${speed}s linear infinite`,
+          width: "fit-content",
         }}
       >
         {tickerKeys.map((key, i) => (
-          <span 
+          <span
             key={`${key}-${i}`}
-            className="mx-4 inline-flex items-center gap-1.5 text-xs font-mono tracking-wider text-muted-foreground/60"
+            className="mx-4 inline-flex flex-shrink-0 items-center gap-1.5 text-xs font-mono tracking-wider text-muted-foreground/60"
           >
             <span className="h-1 w-1 rounded-full bg-[var(--holo)]/50" />
             {key}
@@ -380,7 +384,7 @@ export function HNOSSKeyTicker({ className, speed = 30 }: HNOSSKeyTickerProps) {
       <style>{`
         @keyframes hnoss-ticker {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
+          100% { transform: translateX(-50%); }
         }
       `}</style>
     </div>
