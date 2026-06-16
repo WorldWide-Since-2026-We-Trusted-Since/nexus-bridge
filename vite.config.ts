@@ -1,58 +1,26 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import tailwindcss from "@tailwindcss/vite";
-import tsConfigPaths from "vite-tsconfig-paths";
+// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
+// or the app will break with duplicate plugins:
+//   - tanstackStart, viteReact, tailwindcss, tsConfigPaths, nitro (build-only using cloudflare as a default target),
+//     componentTagger (dev-only), VITE_* env injection, @ path alias, React/TanStack dedupe,
+//     error logger plugins, and sandbox detection (port/host/strictPort).
+// You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
+import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    // TanStack Router MUST come BEFORE React/JSX plugins
-    TanStackRouterVite({
-      target: "react",
-      autoCodeSplitting: true,
-    }),
-    // React plugin
-    react(),
-    // Tailwind CSS v4
-    tailwindcss(),
-    // TypeScript path aliases (@/components, etc.)
-    tsConfigPaths(),
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@/components": path.resolve(__dirname, "./src/components"),
-      "@/lib": path.resolve(__dirname, "./src/lib"),
-      "@/hooks": path.resolve(__dirname, "./src/hooks"),
-      "@/data": path.resolve(__dirname, "./src/data"),
-      "@/types": path.resolve(__dirname, "./src/types"),
-    },
-  },
-  server: {
-    fs: {
-      strict: false,
-    },
-    port: 3001,
-    host: true,
-  },
-  build: {
-    outDir: "dist",
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ["react", "react-dom"],
-          router: ["@tanstack/react-router", "@tanstack/react-query"],
-        },
+  vite: {
+    server: {
+      fs: {
+        strict: false,
       },
     },
   },
-  preview: {
-    port: 3001,
+  tanstackStart: {
+    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+    // nitro/vite builds from this
+    server: { entry: "server" },
   },
 });
