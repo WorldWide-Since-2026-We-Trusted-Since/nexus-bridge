@@ -72,6 +72,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "EU-IE" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "EU-IE · Infrastructure Enforcement Initiative" },
+      { name: "twitter:title", content: "EU-IE · Infrastructure Enforcement Initiative" },
+      { property: "og:description", content: "Independent organization advancing infrastructure, innovation and international cooperation." },
+      { name: "twitter:description", content: "Independent organization advancing infrastructure, innovation and international cooperation." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/66be32d9-76e7-4ada-8fa3-e2ae0cdd2365/id-preview-fe1bdcce--b376b8ce-38ee-403f-9dff-5ee56156c220.lovable.app-1781571012545.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/66be32d9-76e7-4ada-8fa3-e2ae0cdd2365/id-preview-fe1bdcce--b376b8ce-38ee-403f-9dff-5ee56156c220.lovable.app-1781571012545.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
