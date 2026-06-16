@@ -3,16 +3,17 @@ import { Shell } from "@/components/holo/Shell";
 import {
   GlassPanel, HoloCard, BlackStar, TrustBadge, CrownSeal, SectionHeader, StatusDot,
 } from "@/components/holo/primitives";
+import { HNOSSKeyStream, HNOSSKeyTicker, HNOSSBadge } from "@/components/holo/HNOSSKeyStream";
 import { coreAreas, members, milestones, finance } from "@/data/mock";
 import { ArrowRight, Globe2, Sparkles, Activity, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "EU-IE Headquarters · Infrastructure · Treaties · Cooperation" },
-      { name: "description", content: "Holographic command center for infrastructure, treaties, partnerships and international cooperation." },
-      { property: "og:title", content: "EU-IE Headquarters" },
-      { property: "og:description", content: "Independent platform for infrastructure, treaties and international cooperation." },
+      { title: "HNOSS · Reference Governance System · EU · NATO · UN · Pentagon" },
+      { name: "description", content: "Holographic command center for infrastructure, treaties, partnerships and international cooperation — aligned with EU, NATO, UN, Pentagon." },
+      { property: "og:title", content: "HNOSS Reference Governance System" },
+      { property: "og:description", content: "Strategic partner platform for infrastructure, treaties and international cooperation — aligned with EU, NATO, UN, Pentagon." },
     ],
   }),
   component: Index,
@@ -32,10 +33,10 @@ function Hero() {
             <span className="text-foreground/90">for a connected world.</span>
           </h1>
           <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            EU-IE is an independent initiative advancing infrastructure, innovation and
-            international cooperation through trusted partnerships, transparent governance
-            and long-horizon programs. <span className="text-foreground/80">Open in the Gray</span> — open
-            where possible, protected where necessary.
+            HNOSS Reference Governance System — strategic partner aligned with EU, NATO,
+            UN, Pentagon advancing infrastructure, innovation and international cooperation
+            through sovereign wealth coordination, transparent governance and long-horizon
+            programs. <span className="text-foreground/80">Open in the Gray</span> — open where possible, protected where necessary.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
@@ -278,15 +279,56 @@ function GrayZone() {
   );
 }
 
+function GovernanceStream() {
+  return (
+    <section className="relative mt-16 overflow-hidden rounded-xl border border-[var(--holo)]/20 bg-[oklch(0.15_0.05_252_/_0.6)]">
+      <div className="absolute inset-0 pointer-events-none">
+        <HNOSSKeyStream keyCount={30} className="h-[200px] w-full" />
+      </div>
+      <div className="relative z-10 flex items-center justify-between border-b border-[var(--holo)]/20 bg-[oklch(0.12_0.04_252_/_0.8)] px-4 py-2">
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-3.5 w-3.5 text-[var(--holo)]" />
+          <span className="text-[11px] font-mono uppercase tracking-widest text-holo">
+            HNOSS Governance Keys
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <HNOSSBadge keyName="TX" category="layers" size="sm" />
+          <HNOSSBadge keyName="TXA" category="layers" size="sm" />
+          <HNOSSBadge keyName="GOV" category="layers" size="sm" />
+          <HNOSSBadge keyName="SWF" category="layers" size="sm" />
+        </div>
+      </div>
+      <div className="relative z-10 grid grid-cols-2 gap-px border-t border-[var(--holo)]/10 bg-border md:grid-cols-4">
+        {[
+          { k: "LEI", v: "894500GBJSIW8L6ET310", cat: "identifiers" as const },
+          { k: "DUNS", v: "315676980 | 317066336", cat: "identifiers" as const },
+          { k: "UNGM", v: "1172700 | 873042778", cat: "alliances" as const },
+          { k: "EU-Ref", v: "APP-247579", cat: "regulatory" as const },
+        ].map((item) => (
+          <div key={item.k} className="flex items-center justify-between bg-[oklch(0.12_0.04_252_/_0.9)] px-3 py-2">
+            <span className="text-[10px] font-mono uppercase text-muted-foreground">{item.k}</span>
+            <HNOSSBadge keyName={item.v} category={item.cat} size="sm" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <Shell>
       <Hero />
+      <GovernanceStream />
       <CoreAreas />
       <MembersStrip />
       <FinanceConstellation />
       <TimelinePreview />
       <GrayZone />
+      <div className="mt-8 border-t border-border bg-card/30 py-2">
+        <HNOSSKeyTicker speed={40} />
+      </div>
     </Shell>
   );
 }

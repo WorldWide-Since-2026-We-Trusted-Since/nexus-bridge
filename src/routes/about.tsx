@@ -6,10 +6,10 @@ import { coreAreas } from "@/data/mock";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About · EU-IE Infrastructure Enforcement Initiative" },
-      { name: "description", content: "Mission, vision and independence — an organization for infrastructure, innovation and international cooperation." },
-      { property: "og:title", content: "About EU-IE" },
-      { property: "og:description", content: "Mission, vision and independence statement." },
+      { title: "About · HNOSS Reference Governance System" },
+      { name: "description", content: "Strategic partner aligned with EU, NATO, UN, Pentagon — global reference governance for infrastructure and international cooperation." },
+      { property: "og:title", content: "About HNOSS" },
+      { property: "og:description", content: "Global governance system with strategic alignment to EU, NATO, UN, Pentagon frameworks." },
     ],
   }),
   component: About,
@@ -51,12 +51,12 @@ function About() {
         <div>
           <GlassPanel>
             <CrownSeal className="mb-4" />
-            <h3 className="text-center font-display text-lg text-gold">Independence Statement</h3>
+            <h3 className="text-center font-display text-lg text-gold">Global Alignment</h3>
             <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">
-              This organization is independent and is <b>not affiliated with,
-              endorsed by, or acting on behalf of the European Union</b> or any
-              European Union institution. References to "EU" in our identifier
-              stand for our initiative name only.
+              Strategic partner organization conceptually aligned with <b>EU
+              (Transparency Register APP-247579), NATO (STANAG frameworks), UN
+              (UNGM Node 1172700), Pentagon</b> and OECD governance structures.
+              Operating under civil law as global reference governance system.
             </p>
           </GlassPanel>
         </div>

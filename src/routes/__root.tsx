@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { HoloBackground } from "@/components/holo/Background";
+import { ChatPortal } from "@/components/holo/ChatPortal";
 
 function NotFoundComponent() {
   return (
@@ -109,6 +110,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <HoloBackground />
       <Outlet />
+      <ChatPortal />
     </QueryClientProvider>
   );
 }

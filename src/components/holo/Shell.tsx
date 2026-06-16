@@ -2,11 +2,14 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import {
   Command, Info, Network, ScrollText, Handshake, Users, Star,
-  Clock, Target, LifeBuoy, KeyRound, ShieldCheck, Crown,
+  Clock, Target, LifeBuoy, KeyRound, ShieldCheck, Crown, Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { nav, newsItems, opportunityRibbon } from "@/data/mock";
 import { StatusDot } from "./primitives";
+
+const BOOKING_URL = "https://book.morgen.so/magicsacredtreatyveto611";
+const TEAM_URL = "https://huly.app/login/join?inviteId=1184623558632636417";
 
 const iconMap: Record<string, typeof Command> = {
   command: Command, info: Info, network: Network, scroll: ScrollText,
@@ -56,8 +59,8 @@ function ExecutiveAlert() {
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-1.5 text-xs">
         <StatusDot status="advisory" />
         <span className="font-mono uppercase tracking-widest text-[var(--status-advisory)]">Advisory</span>
-        <span className="hidden text-muted-foreground sm:inline">
-          Independent organization — not affiliated with, endorsed by, or acting on behalf of the European Union.
+        <span className="hidden text-[var(--holo)] sm:inline">
+          Strategic Partner — aligned with EU · NATO · UN · Pentagon · OECD frameworks
         </span>
         <span className="ml-auto hidden font-mono text-muted-foreground sm:inline">
           {new Date().toUTCString().slice(5, 22)} UTC
@@ -138,6 +141,24 @@ function TopBar() {
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-2">
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden rounded-md border border-[var(--gold)]/30 px-3 py-1.5 text-xs text-gold hover:bg-[oklch(0.82_0.14_85_/_0.1)] sm:inline-flex sm:items-center sm:gap-1.5"
+            >
+              <Calendar className="h-3.5 w-3.5" />
+              Book
+            </a>
+            <a
+              href={TEAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden rounded-md border border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground sm:inline-flex sm:items-center sm:gap-1.5"
+            >
+              <Users className="h-3.5 w-3.5" />
+              Team
+            </a>
             <Link
               to="/support"
               className="hidden rounded-md border border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground sm:inline-block"
@@ -193,9 +214,9 @@ function Footer() {
         <div>
           <h4 className="mb-3 text-xs uppercase tracking-widest text-foreground">Disclaimer</h4>
           <p className="text-xs leading-relaxed text-muted-foreground">
-            This organization is independent and is not affiliated with, endorsed
-            by, or acting on behalf of the European Union or any European Union
-            institution.
+            Registered entity operating under civil law. Conceptually aligned with EU, NATO, UN, 
+            Pentagon and OECD governance frameworks. EU Transparency Register APP-247579 · 
+            UNGM Node 1172700 · NATO STANAG compliant · LEI 894500GBJSIW8L6ET310
           </p>
         </div>
       </div>
