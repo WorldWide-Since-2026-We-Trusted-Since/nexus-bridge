@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell } from "@/components/holo/Shell";
 import {
@@ -270,8 +271,14 @@ function DataCards() {
   );
 }
 
-// Editable Section: Timeline
+// Editable Section: Timeline - Live Ticker Style
 function TimelinePreview() {
+  // Duplicate milestones for seamless infinite scroll
+  const tickerItems = useMemo(() => {
+    const copies = 6;
+    return Array(copies).fill(milestones).flat();
+  }, []);
+
   return (
     <section className="mt-24">
       <SectionHeader
@@ -279,25 +286,107 @@ function TimelinePreview() {
         title="A long horizon, mapped"
         subtitle="Strategic milestones from founding to 2030 vision"
       />
-      <GlassPanel className="mt-10">
-        <div className="relative">
-          <div className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[var(--holo)] to-transparent" />
-          <div className="relative grid grid-cols-4 gap-2">
-            {milestones.slice(0, 4).map((milestone, i) => (
-              <div key={milestone.year} className="text-center">
-                <div className="mx-auto mb-3 text-xs font-mono text-muted-foreground">{milestone.year}</div>
-                <div className="mx-auto h-3 w-3 rounded-full bg-[var(--holo)] shadow-[0_0_12px_oklch(0.78_0.16_230_/_0.8)]" />
-                <div className="mt-3 text-[11px] leading-snug text-foreground/80">{milestone.label}</div>
+      <GlassPanel className="mt-10 overflow-hidden">
+        {/* Live Ticker Timeline */}
+        <div className="timeline-ticker relative py-6">
+          {/* Background gradient line */}
+          <div className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[var(--holo)]/50 to-transparent" />
+
+          {/* Scrolling container */}
+          <div className="timeline-track flex items-center">
+            {tickerItems.map((milestone: typeof milestones[0], i: number) => (
+              <div
+                key={`${milestone.year}-${i}`}
+                className="timeline-milestone flex flex-shrink-0 items-center"
+              >
+                {/* Milestone card */}
+                <div className="flex flex-col items-center px-6">
+                  <div className="text-xs font-mono text-muted-foreground mb-2">
+                    {milestone.year}
+                  </div>
+                  <div className="h-3 w-3 rounded-full bg-[var(--holo)] shadow-[0_0_12px_oklch(0.78_0.16_230_/_0.8)] timeline-pulse-dot" />
+                  <div className="mt-2 text-[11px] leading-snug text-foreground/80 text-center max-w-[120px]">
+                    {milestone.label}
+                  </div>
+                </div>
+
+                {/* Connector line to next item */}
+                <div className="h-px w-8 bg-gradient-to-r from-[var(--holo)]/30 to-transparent" />
               </div>
             ))}
           </div>
         </div>
-        <div className="mt-6 flex justify-center">
+
+        <div className="mt-4 flex justify-center border-t border-border/50 pt-4">
           <Link to="/timeline" className="inline-flex items-center gap-2 text-xs text-holo hover:underline">
             View Full Timeline <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
       </GlassPanel>
+
+      <style>{`
+        .timeline-ticker {
+          mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%
+          );
+          -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%
+          );
+        }
+
+        .timeline-track {
+          animation: timeline-scroll 40s linear infinite;
+          width: fit-content;
+        }
+
+        .timeline-track:hover {
+          animation-play-state: paused;
+        }
+
+        @keyframes timeline-scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .timeline-pulse-dot {
+          animation: dot-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dot-pulse {
+          0%, 100% {
+            box-shadow: 0 0 8px oklch(0.78 0.16 230 / 0.6);
+            transform: scale(1);
+          }
+          50% {
+            box-shadow: 0 0 16px oklch(0.78 0.16 230 / 1);
+            transform: scale(1.1);
+          }
+        }
+
+        .timeline-milestone {
+          transition: opacity 0.3s ease;
+        }
+
+        .timeline-track:hover .timeline-milestone {
+          opacity: 0.7;
+        }
+
+        .timeline-track:hover .timeline-milestone:hover {
+          opacity: 1;
+        }
+      `}</style>
     </section>
   );
 }
