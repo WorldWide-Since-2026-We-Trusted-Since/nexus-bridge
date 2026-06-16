@@ -164,8 +164,8 @@ function CoreAreas() {
   return (
     <section className="mt-24">
       <SectionHeader
-        eyebrow="[Section Title]"
-        title="[Main Heading]"
+        eyebrow="Core Areas"
+        title="Eight pillars of cooperation"
         subtitle="[Edit this subtitle in src/routes/index.tsx]"
       />
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -192,8 +192,8 @@ function MembersStrip() {
   return (
     <section className="mt-24">
       <SectionHeader
-        eyebrow="[Section Label]"
-        title="[Members Title]"
+        eyebrow="Members"
+        title="Verified network"
         subtitle="[Edit subtitle in src/routes/index.tsx]"
       />
       <GlassPanel className="mt-10 p-0">
@@ -240,8 +240,8 @@ function DataCards() {
   return (
     <section className="mt-24">
       <SectionHeader
-        eyebrow="[Section Label]"
-        title="[Section Title]"
+        eyebrow="Finance Constellation"
+        title="Resources as a network of stars"
         subtitle="[Edit this in src/routes/index.tsx - Data cards section]"
       />
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -272,8 +272,8 @@ function TimelinePreview() {
   return (
     <section className="mt-24">
       <SectionHeader
-        eyebrow="[Section Label]"
-        title="[Timeline Title]"
+        eyebrow="Timeline"
+        title="A long horizon, mapped"
         subtitle="[Edit subtitle in src/routes/index.tsx]"
       />
       <GlassPanel className="mt-10">
@@ -304,8 +304,8 @@ function AccessZones() {
   return (
     <section className="mt-24">
       <SectionHeader
-        eyebrow="[Section Label]"
-        title="[Section Title]"
+        eyebrow="Open in the Gray"
+        title="Transparency through controlled visibility"
         subtitle="[Edit subtitle in src/routes/index.tsx]"
       />
       <div className="mt-10 grid gap-4 md:grid-cols-3">
@@ -341,7 +341,7 @@ function GovernanceStream() {
         <div className="flex items-center gap-2">
           <Sparkles className="h-3.5 w-3.5 text-[var(--holo)]" />
           <span className="text-[11px] font-mono uppercase tracking-widest text-holo">
-            [Governance Keys Section]
+            HNOSS Governance Keys
           </span>
         </div>
         <div className="flex items-center gap-2">
