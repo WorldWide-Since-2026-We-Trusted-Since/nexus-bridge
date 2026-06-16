@@ -1,30 +1,46 @@
+# Netlify Configuration for HNOSS Reference Governance System
+# This file enables automatic deployment from GitHub to Netlify
+
 [build]
-  command = "npm run build"
+  # Build command - uses npm instead of bun for Netlify compatibility
+  command = "npm install && npm run build"
   publish = "dist"
-  base = "/"
+  # Ignore changes to server/ folder for frontend-only deploys
+  ignore = "git diff --quiet $COMMIT_REF $CACHED_COMMIT_REF -- . :!server/"
 
 [build.environment]
+  # Node.js version for build
   NODE_VERSION = "20"
+  # Use npm for Netlify builds (not bun)
   NPM_FLAGS = "--legacy-peer-deps"
+  # API URL - set this in Netlify UI Environment Variables
+  # VITE_API_URL = "https://your-backend-url.com"
 
-# SPA Redirect Rules - REQUIRED for TanStack Router
-# All routes go to index.html for client-side routing
+# ============================================
+# SPA REDIRECT RULES - REQUIRED for TanStack Router
+# ============================================
+# All routes must go to index.html for client-side routing to work
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = true
+  # Ensure query params are preserved
+  query = {path = ":path"}
 
-# Explicit API route for local development
-# (Production API should be deployed separately)
-[[redirects]]
-  from = "/api/*"
-  to = "http://127.0.0.1:3002/api/:splat"
-  status = 200
-  force = true
-  conditions = {Role = ["admin"]}
+# ============================================
+# API PROXY (Optional - if backend is deployed)
+# Uncomment and configure if you have a deployed backend
+# ============================================
+# [[redirects]]
+#   from = "/api/*"
+#   to = "https://your-backend-url.com/api/:splat"
+#   status = 200
+#   force = true
 
-# Security Headers
+# ============================================
+# SECURITY HEADERS
+# ============================================
 [[headers]]
   for = "/*"
   [headers.values]
@@ -32,15 +48,43 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    # HSTS (enable after testing)
+    # Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
-# Cache static assets
+# ============================================
+# CACHING STRATEGY
+# ============================================
+# Cache static assets long-term
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache index.html (don't cache for SPA)
+# Never cache index.html (SPA must be fresh)
 [[headers]]
   for = "/index.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# API responses - no cache
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# ============================================
+# DEPLOYMENT CONTEXTS
+# ============================================
+# Production context (main branch)
+[context.production]
+  environment = { NODE_ENV = "production" }
+
+# Deploy Preview context (pull requests)
+[context.deploy-preview]
+  command = "npm install && npm run build"
+  environment = { NODE_ENV = "development" }
+
+# Branch Deploy context (other branches)
+[context.branch-deploy]
+  command = "npm install && npm run build"
+  environment = { NODE_ENV = "development" }
