@@ -29,8 +29,6 @@
   to = "/index.html"
   status = 200
   force = true
-  # Ensure query params are preserved
-  query = {path = ":path"}
 
 # ============================================
 # API PROXY (Optional - if backend is deployed)
