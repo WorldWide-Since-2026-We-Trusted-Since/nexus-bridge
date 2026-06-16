@@ -468,6 +468,154 @@ function GovernanceStream() {
   );
 }
 
+// Live News Ticker with real-time feed
+function LiveNewsTicker() {
+  const newsItems = useMemo(() => [
+    { type: "LIVE", time: "22:31 UTC", text: "Infrastructure Development Program — Phase II approved" },
+    { type: "TREATY", time: "21:52 UTC", text: "Cross-Border Cooperation Framework updated" },
+    { type: "PARTNER", time: "20:11 UTC", text: "New institutional partner added — Northern Energy Corridor" },
+    { type: "RESEARCH", time: "18:04 UTC", text: "Digital Sovereignty white paper published" },
+    { type: "ALERT", time: "16:40 UTC", text: "Open call: Strategic Investment Framework 2027" },
+    { type: "MILESTONE", time: "14:12 UTC", text: "1,200+ verified members across 34 countries" },
+  ], []);
+
+  // Duplicate for seamless loop
+  const tickerItems = useMemo(() => {
+    const copies = 8;
+    return Array(copies).fill(newsItems).flat();
+  }, [newsItems]);
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case "LIVE": return "text-red-400";
+      case "TREATY": return "text-amber-400";
+      case "PARTNER": return "text-emerald-400";
+      case "RESEARCH": return "text-cyan-400";
+      case "ALERT": return "text-rose-400";
+      case "MILESTONE": return "text-violet-400";
+      default: return "text-holo";
+    }
+  };
+
+  return (
+    <div className="news-ticker mt-8 overflow-hidden border-y border-border/50 bg-[oklch(0.1_0.05_252_/_0.8)] py-3">
+      <div className="news-track flex items-center">
+        {tickerItems.map((item: typeof newsItems[0], i: number) => (
+          <div key={`${item.type}-${i}`} className="news-item flex flex-shrink-0 items-center px-6">
+            <span className={`text-xs font-bold tracking-wider ${getTypeColor(item.type)}`}>
+              {item.type}
+            </span>
+            <span className="mx-2 text-[10px] font-mono text-muted-foreground/60">
+              {item.time}
+            </span>
+            <span className="text-xs text-foreground/80">
+              {item.text}
+            </span>
+            <span className="mx-4 text-[var(--holo)]/40">◆</span>
+          </div>
+        ))}
+      </div>
+
+      <style>{`
+        .news-ticker {
+          mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        }
+
+        .news-track {
+          animation: news-scroll 50s linear infinite;
+          width: fit-content;
+        }
+
+        .news-track:hover {
+          animation-play-state: paused;
+        }
+
+        @keyframes news-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .news-item {
+          transition: opacity 0.2s ease;
+        }
+
+        .news-track:hover .news-item {
+          opacity: 0.6;
+        }
+
+        .news-track:hover .news-item:hover {
+          opacity: 1;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// Category Tags Ticker
+function CategoryTicker() {
+  const categories = useMemo(() => [
+    "★ Open Contracts",
+    "★ New Partnerships",
+    "★ Corporate Applications",
+    "★ New Members",
+    "★ Research Opportunities",
+    "★ Active Projects",
+    "★ Treaty Frameworks",
+  ], []);
+
+  // Duplicate for seamless loop
+  const tickerItems = useMemo(() => {
+    const copies = 10;
+    return Array(copies).fill(categories).flat();
+  }, [categories]);
+
+  return (
+    <div className="category-ticker overflow-hidden">
+      <div className="category-track flex items-center justify-center">
+        {tickerItems.map((item: string, i: number) => (
+          <span
+            key={`${item}-${i}`}
+            className="category-item flex-shrink-0 px-4 text-[11px] font-medium text-gold/80 tracking-wide"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <style>{`
+        .category-ticker {
+          mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+
+        .category-track {
+          animation: category-scroll 35s linear infinite;
+          width: fit-content;
+        }
+
+        .category-track:hover {
+          animation-play-state: paused;
+        }
+
+        @keyframes category-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .category-item {
+          transition: all 0.2s ease;
+        }
+
+        .category-item:hover {
+          color: var(--gold);
+          transform: scale(1.05);
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function Index() {
   return (
     <Shell>
@@ -479,8 +627,12 @@ function Index() {
       <DataCards />
       <TimelinePreview />
       <AccessZones />
-      <div className="mt-8 border-t border-border bg-card/30 py-2">
-        <HNOSSKeyTicker speed={40} />
+      {/* Live News Ticker */}
+      <LiveNewsTicker />
+
+      {/* Category Tags Ticker */}
+      <div className="border-t border-border/50 bg-[oklch(0.12_0.04_252_/_0.6)] py-2">
+        <CategoryTicker />
       </div>
     </Shell>
   );
