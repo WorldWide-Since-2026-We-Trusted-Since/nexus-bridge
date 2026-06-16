@@ -9,38 +9,248 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TreatiesRouteImport } from './routes/treaties'
+import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as SponsorsRouteImport } from './routes/sponsors'
+import { Route as PartnershipsRouteImport } from './routes/partnerships'
+import { Route as OpportunitiesRouteImport } from './routes/opportunities'
+import { Route as MembersRouteImport } from './routes/members'
+import { Route as InfrastructureRouteImport } from './routes/infrastructure'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRegisterRouteImport } from './routes/auth.register'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
 
+const TreatiesRoute = TreatiesRouteImport.update({
+  id: '/treaties',
+  path: '/treaties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SponsorsRoute = SponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnershipsRoute = PartnershipsRouteImport.update({
+  id: '/partnerships',
+  path: '/partnerships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpportunitiesRoute = OpportunitiesRouteImport.update({
+  id: '/opportunities',
+  path: '/opportunities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembersRoute = MembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfrastructureRoute = InfrastructureRouteImport.update({
+  id: '/infrastructure',
+  path: '/infrastructure',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/infrastructure': typeof InfrastructureRoute
+  '/members': typeof MembersRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/partnerships': typeof PartnershipsRoute
+  '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
+  '/timeline': typeof TimelineRoute
+  '/treaties': typeof TreatiesRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/infrastructure': typeof InfrastructureRoute
+  '/members': typeof MembersRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/partnerships': typeof PartnershipsRoute
+  '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
+  '/timeline': typeof TimelineRoute
+  '/treaties': typeof TreatiesRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/infrastructure': typeof InfrastructureRoute
+  '/members': typeof MembersRoute
+  '/opportunities': typeof OpportunitiesRoute
+  '/partnerships': typeof PartnershipsRoute
+  '/sponsors': typeof SponsorsRoute
+  '/support': typeof SupportRoute
+  '/timeline': typeof TimelineRoute
+  '/treaties': typeof TreatiesRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/infrastructure'
+    | '/members'
+    | '/opportunities'
+    | '/partnerships'
+    | '/sponsors'
+    | '/support'
+    | '/timeline'
+    | '/treaties'
+    | '/auth/login'
+    | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/infrastructure'
+    | '/members'
+    | '/opportunities'
+    | '/partnerships'
+    | '/sponsors'
+    | '/support'
+    | '/timeline'
+    | '/treaties'
+    | '/auth/login'
+    | '/auth/register'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/infrastructure'
+    | '/members'
+    | '/opportunities'
+    | '/partnerships'
+    | '/sponsors'
+    | '/support'
+    | '/timeline'
+    | '/treaties'
+    | '/auth/login'
+    | '/auth/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  InfrastructureRoute: typeof InfrastructureRoute
+  MembersRoute: typeof MembersRoute
+  OpportunitiesRoute: typeof OpportunitiesRoute
+  PartnershipsRoute: typeof PartnershipsRoute
+  SponsorsRoute: typeof SponsorsRoute
+  SupportRoute: typeof SupportRoute
+  TimelineRoute: typeof TimelineRoute
+  TreatiesRoute: typeof TreatiesRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/treaties': {
+      id: '/treaties'
+      path: '/treaties'
+      fullPath: '/treaties'
+      preLoaderRoute: typeof TreatiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sponsors': {
+      id: '/sponsors'
+      path: '/sponsors'
+      fullPath: '/sponsors'
+      preLoaderRoute: typeof SponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partnerships': {
+      id: '/partnerships'
+      path: '/partnerships'
+      fullPath: '/partnerships'
+      preLoaderRoute: typeof PartnershipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opportunities': {
+      id: '/opportunities'
+      path: '/opportunities'
+      fullPath: '/opportunities'
+      preLoaderRoute: typeof OpportunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/members': {
+      id: '/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof MembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/infrastructure': {
+      id: '/infrastructure'
+      path: '/infrastructure'
+      fullPath: '/infrastructure'
+      preLoaderRoute: typeof InfrastructureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +258,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  InfrastructureRoute: InfrastructureRoute,
+  MembersRoute: MembersRoute,
+  OpportunitiesRoute: OpportunitiesRoute,
+  PartnershipsRoute: PartnershipsRoute,
+  SponsorsRoute: SponsorsRoute,
+  SupportRoute: SupportRoute,
+  TimelineRoute: TimelineRoute,
+  TreatiesRoute: TreatiesRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
