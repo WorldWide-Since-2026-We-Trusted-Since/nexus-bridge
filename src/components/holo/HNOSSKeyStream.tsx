@@ -363,7 +363,7 @@ export function HNOSSKeyTicker({ className, speed = 30 }: HNOSSKeyTickerProps) {
       <div 
         className="flex whitespace-nowrap"
         style={{
-          animation: `ticker ${speed}s linear infinite`,
+          animation: `hnoss-ticker ${speed}s linear infinite`,
         }}
       >
         {tickerKeys.map((key, i) => (
@@ -378,7 +378,7 @@ export function HNOSSKeyTicker({ className, speed = 30 }: HNOSSKeyTickerProps) {
       </div>
 
       <style>{`
-        @keyframes ticker {
+        @keyframes hnoss-ticker {
           0% { transform: translateX(0); }
           100% { transform: translateX(-33.33%); }
         }

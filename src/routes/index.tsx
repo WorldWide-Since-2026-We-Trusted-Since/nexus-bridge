@@ -5,6 +5,7 @@ import {
 } from "@/components/holo/primitives";
 import { HNOSSKeyStream, HNOSSKeyTicker, HNOSSBadge } from "@/components/holo/HNOSSKeyStream";
 import { KeyRound, UserPlus, Shield, ArrowRight, Globe2, Sparkles, Activity, Clock } from "lucide-react";
+import { coreAreas, members, finance, milestones } from "@/data/mock";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -166,19 +167,19 @@ function CoreAreas() {
       <SectionHeader
         eyebrow="Core Areas"
         title="Eight pillars of cooperation"
-        subtitle="[Edit this subtitle in src/routes/index.tsx]"
+        subtitle="Modern infrastructure, digital sovereignty, and international governance frameworks"
       />
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[1, 2, 3, 4].map((i) => (
+        {coreAreas.map((area, i) => (
           <HoloCard key={i} className="animate-grow-in">
             <div className="mb-3 flex items-center gap-2">
-              <span className="font-mono text-[10px] text-muted-foreground">0{i}</span>
+              <span className="font-mono text-[10px] text-muted-foreground">0{i + 1}</span>
               <span className="h-px flex-1 bg-border" />
-              <BlackStar level={i as 1 | 2 | 3 | 4 | 5} />
+              <BlackStar level={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5} />
             </div>
-            <h3 className="font-display text-base text-foreground">[Area {i} Title]</h3>
+            <h3 className="font-display text-base text-foreground">{area.title}</h3>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              [Edit this description in src/routes/index.tsx line ~200]
+              {area.desc}
             </p>
           </HoloCard>
         ))}
@@ -194,7 +195,7 @@ function MembersStrip() {
       <SectionHeader
         eyebrow="Members"
         title="Verified network"
-        subtitle="[Edit subtitle in src/routes/index.tsx]"
+        subtitle="{members.length} verified members across {new Set(members.map(m => m.country)).size} countries"
       />
       <GlassPanel className="mt-10 p-0">
         <div className="overflow-x-auto">
@@ -202,23 +203,23 @@ function MembersStrip() {
             <thead className="border-b border-border bg-[oklch(0.18_0.05_252_/_0.5)] text-[11px] uppercase tracking-widest text-muted-foreground">
               <tr>
                 <th className="px-4 py-3">ID</th>
-                <th className="px-4 py-3">[Column 1]</th>
-                <th className="px-4 py-3">[Column 2]</th>
-                <th className="px-4 py-3">[Column 3]</th>
-                <th className="px-4 py-3">[Column 4]</th>
+                <th className="px-4 py-3">Organization</th>
+                <th className="px-4 py-3">Category</th>
+                <th className="px-4 py-3">Country</th>
+                <th className="px-4 py-3">Trust Level</th>
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3].map((i) => (
-                <tr key={i} className="border-b border-border/60 transition hover:bg-white/[0.03]">
-                  <td className="px-4 py-3 font-mono text-xs text-holo">ID-{i}</td>
-                  <td className="px-4 py-3">[Data {i}-1]</td>
-                  <td className="px-4 py-3 text-muted-foreground">[Data {i}-2]</td>
-                  <td className="px-4 py-3 text-muted-foreground">[Data {i}-3]</td>
+              {members.slice(0, 5).map((member) => (
+                <tr key={member.id} className="border-b border-border/60 transition hover:bg-white/[0.03]">
+                  <td className="px-4 py-3 font-mono text-xs text-holo">{member.id}</td>
+                  <td className="px-4 py-3">{member.org}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{member.category}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{member.country}</td>
                   <td className="px-4 py-3">
                     <span className="inline-flex items-center gap-2 text-xs">
-                      <StatusDot status="active" />
-                      [Status]
+                      <StatusDot status={member.status === "Active" ? "active" : "advisory"} />
+                      {member.trust}%
                     </span>
                   </td>
                 </tr>
@@ -227,8 +228,8 @@ function MembersStrip() {
           </table>
         </div>
         <div className="flex items-center justify-between border-t border-border px-4 py-3 text-xs text-muted-foreground">
-          <span>[Showing X of Y entries]</span>
-          <Link to="/members" className="text-holo hover:underline">[View More] →</Link>
+          <span>Showing 5 of {members.length} entries</span>
+          <Link to="/members" className="text-holo hover:underline">View All Members →</Link>
         </div>
       </GlassPanel>
     </section>
@@ -242,23 +243,25 @@ function DataCards() {
       <SectionHeader
         eyebrow="Finance Constellation"
         title="Resources as a network of stars"
-        subtitle="[Edit this in src/routes/index.tsx - Data cards section]"
+        subtitle="Verified funding streams and transparent capital allocation"
       />
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {[1, 2, 3].map((i) => (
+        {finance.map((item, i) => (
           <HoloCard key={i}>
             <div className="flex items-start justify-between">
               <div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Card {i}</div>
-                <h3 className="mt-1 font-display text-lg text-foreground">[Card Title]</h3>
+                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{item.star}</div>
+                <h3 className="mt-1 font-display text-lg text-foreground">{item.star}</h3>
               </div>
               <div className="text-gold text-2xl">★</div>
             </div>
-            <div className="mt-4 font-display text-3xl text-holo">[Value]</div>
+            <div className="mt-4 font-display text-3xl text-holo">{item.value}</div>
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <span className="rounded-full border border-[var(--gold)]/30 bg-[oklch(0.82_0.14_85_/_0.06)] px-2 py-0.5 text-[10px] text-gold">
-                [Tag]
-              </span>
+              {item.trust.map((tag, j) => (
+                <span key={j} className="rounded-full border border-[var(--gold)]/30 bg-[oklch(0.82_0.14_85_/_0.06)] px-2 py-0.5 text-[10px] text-gold">
+                  {tag}
+                </span>
+              ))}
             </div>
           </HoloCard>
         ))}
@@ -274,24 +277,24 @@ function TimelinePreview() {
       <SectionHeader
         eyebrow="Timeline"
         title="A long horizon, mapped"
-        subtitle="[Edit subtitle in src/routes/index.tsx]"
+        subtitle="Strategic milestones from founding to 2030 vision"
       />
       <GlassPanel className="mt-10">
         <div className="relative">
           <div className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[var(--holo)] to-transparent" />
           <div className="relative grid grid-cols-4 gap-2">
-            {[2024, 2025, 2026, 2027].map((year, i) => (
-              <div key={year} className="text-center">
-                <div className="mx-auto mb-3 text-xs font-mono text-muted-foreground">{year}</div>
+            {milestones.slice(0, 4).map((milestone, i) => (
+              <div key={milestone.year} className="text-center">
+                <div className="mx-auto mb-3 text-xs font-mono text-muted-foreground">{milestone.year}</div>
                 <div className="mx-auto h-3 w-3 rounded-full bg-[var(--holo)] shadow-[0_0_12px_oklch(0.78_0.16_230_/_0.8)]" />
-                <div className="mt-3 text-[11px] leading-snug text-foreground/80">[Milestone {i+1}]</div>
+                <div className="mt-3 text-[11px] leading-snug text-foreground/80">{milestone.label}</div>
               </div>
             ))}
           </div>
         </div>
         <div className="mt-6 flex justify-center">
           <Link to="/timeline" className="inline-flex items-center gap-2 text-xs text-holo hover:underline">
-            [View Full Timeline] <ArrowRight className="h-3 w-3" />
+            View Full Timeline <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
       </GlassPanel>
@@ -306,24 +309,24 @@ function AccessZones() {
       <SectionHeader
         eyebrow="Open in the Gray"
         title="Transparency through controlled visibility"
-        subtitle="[Edit subtitle in src/routes/index.tsx]"
+        subtitle="Three access tiers for different levels of partnership"
       />
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         <HoloCard>
           <Globe2 className="h-6 w-6 text-[var(--holo)]" />
-          <h3 className="mt-3 font-display text-lg">[Zone 1 Title]</h3>
-          <p className="mt-2 text-xs text-muted-foreground">[Zone 1 description - editable in src/routes/index.tsx]</p>
+          <h3 className="mt-3 font-display text-lg">Public Zone</h3>
+          <p className="mt-2 text-xs text-muted-foreground">Open access to governance frameworks, published research, and public transparency reports. Available to all visitors.</p>
         </HoloCard>
         <GlassPanel gray>
           <div className="h-6 w-6 rounded border border-[var(--gray-zone)]" />
-          <h3 className="mt-3 font-display text-lg">[Zone 2 Title]</h3>
-          <p className="mt-2 text-xs text-muted-foreground">[Zone 2 description - editable in src/routes/index.tsx]</p>
-          <button className="mt-4 rounded-md border border-border bg-white/5 px-3 py-1.5 text-xs">[Action Button]</button>
+          <h3 className="mt-3 font-display text-lg">Gray Zone</h3>
+          <p className="mt-2 text-xs text-muted-foreground">Restricted access for verified members and partners. Includes active projects, contracts, and partnership opportunities.</p>
+          <button className="mt-4 rounded-md border border-border bg-white/5 px-3 py-1.5 text-xs">Apply for Access</button>
         </GlassPanel>
         <HoloCard>
           <div className="h-6 w-6 rounded border border-[var(--gold)]/40" />
-          <h3 className="mt-3 font-display text-lg">[Zone 3 Title]</h3>
-          <p className="mt-2 text-xs text-muted-foreground">[Zone 3 description - editable in src/routes/index.tsx]</p>
+          <h3 className="mt-3 font-display text-lg">Gold Zone</h3>
+          <p className="mt-2 text-xs text-muted-foreground">Executive access for strategic partners and institutional members. Full governance visibility and decision-making participation.</p>
         </HoloCard>
       </div>
     </section>
@@ -332,6 +335,20 @@ function AccessZones() {
 
 // Editable Section: Governance Keys
 function GovernanceStream() {
+  const governanceKeys = [
+    { k: "TX", v: "Transcendence", cat: "layers" as const },
+    { k: "GOV", v: "Government", cat: "layers" as const },
+    { k: "FI", v: "Financial", cat: "layers" as const },
+    { k: "SWF", v: "Sovereign Wealth", cat: "layers" as const },
+  ];
+
+  const identifiers = [
+    { k: "LEI", v: "894500GBJSIW8L6ET310", cat: "identifiers" as const },
+    { k: "UNGM", v: "1172700", cat: "identifiers" as const },
+    { k: "EU-Ref", v: "APP-247579", cat: "identifiers" as const },
+    { k: "VAT", v: "DE441892129", cat: "identifiers" as const },
+  ];
+
   return (
     <section className="relative mt-16 overflow-hidden rounded-xl border border-[var(--holo)]/20 bg-[oklch(0.15_0.05_252_/_0.6)]">
       <div className="absolute inset-0 pointer-events-none">
@@ -345,18 +362,13 @@ function GovernanceStream() {
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <HNOSSBadge keyName="[KEY1]" category="layers" size="sm" />
-          <HNOSSBadge keyName="[KEY2]" category="layers" size="sm" />
-          <HNOSSBadge keyName="[KEY3]" category="layers" size="sm" />
+          {governanceKeys.slice(0, 3).map((key) => (
+            <HNOSSBadge key={key.k} keyName={key.k} category={key.cat} size="sm" />
+          ))}
         </div>
       </div>
       <div className="relative z-10 grid grid-cols-2 gap-px border-t border-[var(--holo)]/10 bg-border md:grid-cols-4">
-        {[
-          { k: "[ID1]", v: "[VALUE1]", cat: "identifiers" as const },
-          { k: "[ID2]", v: "[VALUE2]", cat: "alliances" as const },
-          { k: "[ID3]", v: "[VALUE3]", cat: "regulatory" as const },
-          { k: "[ID4]", v: "[VALUE4]", cat: "identifiers" as const },
-        ].map((item) => (
+        {identifiers.map((item) => (
           <div key={item.k} className="flex items-center justify-between bg-[oklch(0.12_0.04_252_/_0.9)] px-3 py-2">
             <span className="text-[10px] font-mono uppercase text-muted-foreground">{item.k}</span>
             <HNOSSBadge keyName={item.v} category={item.cat} size="sm" />
